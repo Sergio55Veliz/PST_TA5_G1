@@ -16,5 +16,5 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.496"
-        app:srcCompat="@drawable/logo_BookStore" />
+        app:srcCompat="@drawable/logo_book_store" />
 </androidx.constraintlayout.widget.ConstraintLayout>
