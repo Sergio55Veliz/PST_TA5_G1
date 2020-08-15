@@ -14,12 +14,12 @@
     <fragment
         android:id="@+id/navigation_categorie"
         android:name="com.example.amst1.ui.dashboard.DashboardFragment"
-        android:label="@string/title_dashboard"
+        android:label="@string/title_categories"
         tools:layout="@layout/fragment_dashboard" />
 
     <fragment
         android:id="@+id/navigation_perfil"
         android:name="com.example.amst1.ui.notifications.NotificationsFragment"
-        android:label="@string/title_notifications"
+        android:label="@string/title_perfil"
         tools:layout="@layout/fragment_notifications" />
 </navigation>
