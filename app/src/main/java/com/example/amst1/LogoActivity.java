@@ -19,5 +19,4 @@ public class LogoActivity extends AppCompatActivity {
         startActivity(i);
         this.finish();
     }
-
 }
