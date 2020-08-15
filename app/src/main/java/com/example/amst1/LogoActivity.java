@@ -28,7 +28,7 @@ public class LogoActivity extends AppCompatActivity {
     }
 
     public void irLogin(View view) {
-        Intent i = new Intent(this, LoginActivity.class);
+        Intent i = new Intent(this, Ventana2.class);
         startActivity(i);
         this.finish();
     }
