@@ -16,6 +16,7 @@ public class LogoActivity extends AppCompatActivity {
 
     public void irLogin(View view) {
         //Intent i = new Intent(this, LoginActivity.class);
+        //cuando este completo el login, cambiarle a LoginActivity
         Intent i = new Intent(this, NavegationActivity.class);
         startActivity(i);
         this.finish();

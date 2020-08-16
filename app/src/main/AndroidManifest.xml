@@ -25,6 +25,7 @@
         <activity
             android:name=".NavegationActivity"
             android:label="@string/app_name" />
+        <activity android:name=".ui.home.HomeFragment" />
     </application>
 
 </manifest>

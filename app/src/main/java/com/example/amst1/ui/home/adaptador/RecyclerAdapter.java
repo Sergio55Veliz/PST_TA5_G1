@@ -53,6 +53,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
     public void onBindViewHolder(@NonNull final RecyclerHolder holder, final int position) {
         final ItemList item = items.get(position);
         holder.imgItem.setImageResource(item.getImgResource());
+        //holder.imgItem.setImageResource();
         holder.tvTitulo.setText("Título: "+item.getTitulo());
         holder.tvAutor.setText("Autor: "+item.getAutor());
         holder.tvEditorial.setText("Editorial: "+item.getEditorial());
@@ -137,7 +138,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         }
     }
 
-    public interface RecyclerItemClick {
+    public interface RecyclerItemClick {//Se lo implementa en la clase HOME
         void itemClick(ItemList item);
     }
 
