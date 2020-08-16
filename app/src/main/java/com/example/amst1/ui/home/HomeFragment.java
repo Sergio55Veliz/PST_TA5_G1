@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -19,8 +20,8 @@ import com.example.amst1.R;
 public class HomeFragment extends Fragment {
 
     private HomeViewModel homeViewModel;
-    private LinearLayout linealLayout;
-    private EditText etBuscador;
+    //private LinearLayout linealLayout;
+    private SearchView svBuscador;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -35,8 +36,8 @@ public class HomeFragment extends Fragment {
             }
         });*/
 
-        linealLayout = (LinearLayout) root.findViewById(R.id.linealLayout);
-        etBuscador = (EditText) root.findViewById(R.id.etBuscador);
+        //linealLayout = (LinearLayout) root.findViewById(R.id);
+        svBuscador = (SearchView) root.findViewById(R.id.svBuscador);
         return root;
     }
 

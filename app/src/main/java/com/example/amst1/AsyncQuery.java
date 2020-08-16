@@ -14,7 +14,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLEncoder;
 
-public static class AsyncQuery extends AsyncTask<String[],Void,String[]> {
+public class AsyncQuery extends AsyncTask<String[],Void,String[]> {
     @Override
     protected String[] doInBackground(String[]... datos) {
         //return new String[0];
@@ -94,5 +94,4 @@ public static class AsyncQuery extends AsyncTask<String[],Void,String[]> {
         return totalResultadoSQL;
     }
 
-}
 }

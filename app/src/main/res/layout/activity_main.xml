@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.home.HomeFragment">
-
+    tools:context=".MainActivity">
 
     <SearchView
         android:id="@+id/svBuscador"
@@ -13,7 +12,9 @@
         android:layout_height="wrap_content"
         android:iconifiedByDefault="false"
         android:queryHint="Buscar por Título"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent">
+
+    </SearchView>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvLista"
@@ -23,6 +24,5 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/svBuscador" />
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>
