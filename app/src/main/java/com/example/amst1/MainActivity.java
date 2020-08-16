@@ -91,7 +91,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerAdapter.R
                 String nomImagen = ingLine[1];
                 int indice = Integer.parseInt(ingLine[0]);
                 String[] infoLibro = ord_por_idImg[indice].split("--");
-                itemLists.add(new ItemList(infoLibro[1], infoLibro[2], infoLibro[3], R.drawable.carrie, infoLibro[6]));
+                itemLists.add(new ItemList(infoLibro[1], infoLibro[2], infoLibro[3], nomImagen, infoLibro[6]));
                 valorTXT+=nomImagen+"\n";
             }
 

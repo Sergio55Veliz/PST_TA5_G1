@@ -1,6 +1,9 @@
 package com.example.amst1.ui.home.adaptador;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Build;
+import android.util.Base64;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,11 +55,16 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
     @Override
     public void onBindViewHolder(@NonNull final RecyclerHolder holder, final int position) {
         final ItemList item = items.get(position);
-        holder.imgItem.setImageResource(item.getImgResource());
-        //holder.imgItem.setImageResource();
         holder.tvTitulo.setText("Título: "+item.getTitulo());
         holder.tvAutor.setText("Autor: "+item.getAutor());
         holder.tvEditorial.setText("Editorial: "+item.getEditorial());
+        //se asigna una imagen en base a su URL sacado de 000webhost
+        byte[] decodedString = Base64.decode(item.getImgURL(), Base64.DEFAULT);
+        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
+        holder.imgItem.setImageBitmap(decodedByte);
+
+        //holder.imgItem.setImageResource(item.getImgResource());
+        //holder.imgItem.setImageResource();
 
         //En caso de darle click, se ejecuta el metodo en el HomeFragment
         //                              itemClick(ItemList item)
