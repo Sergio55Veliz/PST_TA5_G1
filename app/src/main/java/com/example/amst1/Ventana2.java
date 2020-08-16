@@ -27,7 +27,7 @@ public class Ventana2 extends AppCompatActivity {
         setContentView(R.layout.activity_ventana2);
 
         im=(ImageView) findViewById(R.id.imageView);
-        im.set
+        //im.set
         user= (EditText) findViewById(R.id.user);
         password= (EditText) findViewById(R.id.passw);
     }
