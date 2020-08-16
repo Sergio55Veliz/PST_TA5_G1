@@ -26,13 +26,13 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class HomeFragment extends Fragment {
-//public class HomeFragment extends Fragment implements RecyclerAdapter.RecyclerItemClick, SearchView.OnQueryTextListener {
+//public class HomeFragment extends Fragment {
+public class HomeFragment extends Fragment implements RecyclerAdapter.RecyclerItemClick, SearchView.OnQueryTextListener {
 //public class HomeFragment extends AppCompatActivity implements RecyclerAdapter.RecyclerItemClick, SearchView.OnQueryTextListener {
     private HomeViewModel homeViewModel;
     private RecyclerView rvLista;
     private SearchView svSearch;
-    private RecyclerAdapter adapter;
+    private RecyclerAdapter adapterLibros;
     private List<ItemList> items;
     //private TextView txtLibros;
 
@@ -54,8 +54,8 @@ public class HomeFragment extends Fragment {
         svSearch = root.findViewById(R.id.svBuscador);
         //txtLibros = (TextView)findViewById(R.id.txt);
 
-        //initValues();
-        //initListener();
+        initValues();
+        initListener();
 
         return root;
     }
@@ -66,14 +66,17 @@ public class HomeFragment extends Fragment {
         //txtLibros = (TextView)findViewById(R.id.txt);
     }*/
 
-    /*
+
     private void initValues() {
-        LinearLayoutManager manager = new LinearLayoutManager(this);
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
         rvLista.setLayoutManager(manager);
 
         items = getItems();
-        adapter = new RecyclerAdapter(items, this);
-        rvLista.setAdapter(adapter);
+        adapterLibros = new RecyclerAdapter(items, this::itemClick);
+        rvLista.setAdapter(adapterLibros);
+        /*adapterLibros.setOnClickListener(new View.OnClickListener(){
+
+        });*/
     }
 
     private String serverConsulta = "https://flightsregister.000webhostapp.com/queriTA5.php";
@@ -143,22 +146,22 @@ public class HomeFragment extends Fragment {
 
         return itemLists;
     }
-    */
-    /*/**
+
+    /**
      * Ejecuta acciones de cuando se da click al item
      * el item tiene todos los valores del Libro
      * @param item
      */
-    /*@Override
-    public void itemClick(ItemList item) {*/
+    @Override
+    public void itemClick(ItemList item) {
         /*Intent intent = new Intent(this, DetailActivity.class);
          intent.putExtra("itemDetail", item);
          startActivity(intent);*/
-    //}
+    }
 
     /////////////////////////////////////////////////////
     //Métodos para la busqueda de items con el SearchView
-    /*
+
     private void initListener() {
         svSearch.setOnQueryTextListener(this);
     }
@@ -170,10 +173,10 @@ public class HomeFragment extends Fragment {
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        adapter.filter(newText);
+        adapterLibros.filter(newText);
         return false;
     }
-
+    /*
     @Override
     public void onPointerCaptureChanged(boolean hasCapture) {
 

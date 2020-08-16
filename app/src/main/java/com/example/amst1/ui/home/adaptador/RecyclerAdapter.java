@@ -126,10 +126,10 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
 
         /**
          * Inicializamos los campos de la vista
-         * @param itemView_1
+         * @param itemView
          */
-        public RecyclerHolder(@NonNull View itemView_1) {
-            super(itemView_1);
+        public RecyclerHolder(@NonNull View itemView) {
+            super(itemView);
             //activa las variables de item_list:_view
             imgItem = itemView.findViewById(R.id.imgItem);
             tvTitulo = itemView.findViewById(R.id.tvTitulo);
