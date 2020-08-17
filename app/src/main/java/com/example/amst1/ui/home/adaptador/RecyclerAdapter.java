@@ -2,6 +2,7 @@ package com.example.amst1.ui.home.adaptador;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -16,8 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.amst1.R;
 import com.example.amst1.ui.home.ItemList;
 
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.RecyclerHolder> {
@@ -58,13 +62,19 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
         holder.tvTitulo.setText("Título: "+item.getTitulo());
         holder.tvAutor.setText("Autor: "+item.getAutor());
         holder.tvEditorial.setText("Editorial: "+item.getEditorial());
+        //holder.imgItem.setImageResource(item.getURL());
+        //holder.imgItem.setImageURL();
         //se asigna una imagen en base a su URL sacado de 000webhost
-        byte[] decodedString = Base64.decode(item.getImgURL(), Base64.DEFAULT);
-        Bitmap decodedByte = BitmapFactory.decodeByteArray(decodedString, 0, decodedString.length);
-        holder.imgItem.setImageBitmap(decodedByte);
-
-        //holder.imgItem.setImageResource(item.getImgResource());
-        //holder.imgItem.setImageResource();
+        LoadImage loadImage = new LoadImage(holder.imgItem);
+        Bitmap bitm = null;
+        try {
+            bitm = loadImage.execute(item.getImgURL()).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        holder.imgItem.setImageBitmap(bitm);
 
         //En caso de darle click, se ejecuta el metodo en el HomeFragment
         //                              itemClick(ItemList item)
@@ -83,6 +93,34 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
                 holder.itemView.getContext().startActivity(intent);
             }
         });*/
+
+    }
+
+    private class LoadImage extends AsyncTask<String, Void, Bitmap> {
+        ImageView imageView;
+        public LoadImage(ImageView imgItem){
+            this.imageView = imgItem;
+        }
+
+        @Override
+        protected Bitmap doInBackground(String... strings){
+            String urlLink = strings[0];
+            Bitmap bitmap = null;
+            try {
+                InputStream inputStream = new java.net.URL(urlLink).openStream();
+                bitmap = BitmapFactory.decodeStream(inputStream);
+            }catch(IOException e){
+                e.printStackTrace();
+            }
+            return bitmap;
+        }
+
+        /*@Override
+        protected void onPostExecute(Bitmap bitmap) {
+            holder.imgItem.setImageBitmap(bitmap);
+        }*/
+
+
     }
 
     /**
