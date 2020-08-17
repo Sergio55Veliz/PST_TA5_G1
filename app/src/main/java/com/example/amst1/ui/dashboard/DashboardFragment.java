@@ -17,6 +17,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.example.amst1.AsyncQuery;
+import com.example.amst1.LibrosFiltrados;
 import com.example.amst1.LoginActivity;
 import com.example.amst1.NavegationActivity;
 import com.example.amst1.R;
@@ -74,9 +75,9 @@ public class DashboardFragment extends Fragment {
             tv.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(getActivity(), LoginActivity.class );
-                    i.putExtra("id", cate[0]);
-                    i.putExtra("nombre",cate[1]);
+                    Intent i = new Intent(getContext(), LibrosFiltrados.class );
+                    i.putExtra("id", cate[0]);//id de la categoria
+                    i.putExtra("nombre",cate[1]);//nombre de la categoria
                     startActivity(i);
                 }
             });
@@ -92,7 +93,7 @@ public class DashboardFragment extends Fragment {
             tv2.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent i = new Intent(getActivity(), LoginActivity.class);
+                    Intent i = new Intent(getContext(), LibrosFiltrados.class);
                     i.putExtra("id", cate2[0]);
                     i.putExtra("nombre",cate2[1]);
                     startActivity(i);

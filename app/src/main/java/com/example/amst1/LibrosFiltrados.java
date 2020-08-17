@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.widget.SearchView;
-import android.widget.TextView;
 
 import com.example.amst1.ui.home.ItemList;
 import com.example.amst1.ui.home.adaptador.RecyclerAdapter;
@@ -15,17 +14,23 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
-public class MainActivity extends AppCompatActivity implements RecyclerAdapter.RecyclerItemClick, SearchView.OnQueryTextListener {
+public class LibrosFiltrados extends AppCompatActivity implements RecyclerAdapter.RecyclerItemClick, SearchView.OnQueryTextListener {
     private RecyclerView rvLista;
     private SearchView svSearch;
     private RecyclerAdapter adapter;
     private List<ItemList> items;
     //private TextView txtLibros;
+    private String idCategoria;
+    private String nomCategoria;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_libros_filtrados);
+
+        Bundle bundle = getIntent().getExtras();
+        idCategoria = bundle.getString("id");
+        idCategoria = bundle.getString("nombre");
 
         initViews();
         initValues();
@@ -53,12 +58,35 @@ public class MainActivity extends AppCompatActivity implements RecyclerAdapter.R
 
         //Obtener Info de la base de datos
         String[] resultLibros = null;
-        String queryLibro = "SELECT * FROM Libro";
+        String queryCategoLibro = "SELECT * FROM Libro_Categoria WHERE id="+idCategoria;
         try {
+            String queryLibro = "SELECT * FROM Libro WHERE ";
+            //Obtenemos id de Libros
+            String[] datos0 = new String[]{//ahora van 3 variables
+                    "query",//parametro diferenciador con la anterior funcion
+                    serverConsulta,
+                    queryCategoLibro//
+            };
+            AsyncQuery async0 = new AsyncQuery();
+            String[] resultIdLibros = async0.execute(datos0).get()[0].split("\\n");
+            for(int i=1; i<resultIdLibros.length; i++){//desde 1 para evitar el encabezado
+                String[] infoIds = resultIdLibros[i].split("--");
+                //Libro: id,idCatego,idLibro
+                if(i>1){
+                    queryLibro += " OR";
+                }
+                queryLibro += " id="+infoIds[2];
+
+                //ord_por_idImg[Integer.parseInt(infoLibro[4])] = resultLibros[i];
+            }
+
+
+
+            //
             String[] datos = new String[]{//ahora van 3 variables
                     "query",//parametro diferenciador con la anterior funcion
                     serverConsulta,
-                    queryLibro//es el query que el usuario esta ingresando
+                    queryLibro//SELECT * FROM Libro WHERE id=1 id=4 id=5 .... <--Ejemplo
             };
             AsyncQuery async1 = new AsyncQuery();
             //text.setText(async1.execute(datos).get()[0].split("\\n")[3].split("--")[3]);
@@ -79,7 +107,7 @@ public class MainActivity extends AppCompatActivity implements RecyclerAdapter.R
             String[] datoImg = new String[]{//ahora van 3 variables
                     "query",//parametro diferenciador con la anterior funcion
                     serverConsulta,
-                    queryImg//es el query que el usuario esta ingresando
+                    queryImg//
             };
             String[] imagenes;
             AsyncQuery async2 = new AsyncQuery();
