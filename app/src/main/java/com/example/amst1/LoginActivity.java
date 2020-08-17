@@ -16,7 +16,7 @@ public class LoginActivity extends AppCompatActivity {
 
     private String server = "https://flightsregister.000webhostapp.com/queriTA5.php";
 
-
+    public static String usuario = null;
     private String query;
     private EditText user;
     private EditText password;
@@ -29,12 +29,13 @@ public class LoginActivity extends AppCompatActivity {
 
         user= (EditText) findViewById(R.id.user);
         password= (EditText) findViewById(R.id.passw);
+
     }
 
 
     public void ingreso(View view){
         String[] resultado = null;
-        query="Select * From Cliente Where user= \""+user.getText().toString()+"\" And contrasenia= \""+password.getText().toString()+"\"";
+        query="Select user From Cliente Where user= \""+user.getText().toString()+"\" And contrasenia= \""+password.getText().toString()+"\"";
 
         try {
             String[] datos = new String[]{
@@ -47,6 +48,7 @@ public class LoginActivity extends AppCompatActivity {
             if (resultado.length > 0) {
                 Toast toast = Toast.makeText(this, "Conexión Exitosa <3", Toast.LENGTH_SHORT);
                 toast.show();
+                usuario=resultado[0].split("\\r?\\n")[1].split("--")[0];
                 Intent i = new Intent(this, NavegationActivity.class);
                 startActivity(i);
                 this.finish();

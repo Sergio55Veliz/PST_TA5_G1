@@ -47,7 +47,7 @@
             android:paddingLeft="10"
             android:paddingTop="10"
             android:paddingBottom="10"
-            android:text="Nombre:"
+            android:text="Nombre: "
             android:textSize="18sp" />
 
         <TextView
@@ -57,7 +57,7 @@
             android:paddingLeft="10"
             android:paddingTop="10"
             android:paddingBottom="10"
-            android:text="Apellido:"
+            android:text="Apellido: "
             android:textSize="18sp" />
 
         <TextView
@@ -67,7 +67,7 @@
             android:paddingLeft="10"
             android:paddingTop="10"
             android:paddingBottom="10"
-            android:text="Correo:"
+            android:text="Correo: "
             android:textSize="18sp" />
 
         <TextView
@@ -77,7 +77,7 @@
             android:paddingLeft="10"
             android:paddingTop="10"
             android:paddingBottom="10"
-            android:text="Celular:"
+            android:text="Celular: "
             android:textSize="18sp" />
 
         <TextView
@@ -87,7 +87,7 @@
             android:paddingLeft="10"
             android:paddingTop="10"
             android:paddingBottom="10"
-            android:text="Categoria Favorita:"
+            android:text="Categoria Favorita: "
             android:textSize="18sp" />
 
     </LinearLayout>
