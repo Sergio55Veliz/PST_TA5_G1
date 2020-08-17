@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.example.amst1.ui.notifications.NotificationsFragment;
+
 import java.util.concurrent.ExecutionException;
 
 public class LoginActivity extends AppCompatActivity {
@@ -32,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
 
     public void ingreso(View view){
         String[] resultado = null;
-        query="Select nombres From Cliente Where user= \""+user.getText().toString()+"\" And contrasenia= \""+password.getText().toString()+"\"";
+        query="Select * From Cliente Where user= \""+user.getText().toString()+"\" And contrasenia= \""+password.getText().toString()+"\"";
 
         try {
             String[] datos = new String[]{

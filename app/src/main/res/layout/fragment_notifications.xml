@@ -11,12 +11,84 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
+        android:text="Usuario"
         android:textAlignment="center"
         android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/imageView2" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="117dp"
+        android:layout_height="102dp"
+        android:layout_marginTop="52dp"
+        android:src="?android:attr/fingerprintAuthDrawable"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="TODO" />
+
+    <LinearLayout
+        android:layout_width="416dp"
+        android:layout_height="365dp"
+        android:layout_marginTop="76dp"
+        android:orientation="vertical"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/text_notifications">
+
+        <TextView
+            android:id="@+id/textView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10"
+            android:paddingTop="10"
+            android:paddingBottom="10"
+            android:text="Nombre:"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10"
+            android:paddingTop="10"
+            android:paddingBottom="10"
+            android:text="Apellido:"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textView7"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10"
+            android:paddingTop="10"
+            android:paddingBottom="10"
+            android:text="Correo:"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textView8"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10"
+            android:paddingTop="10"
+            android:paddingBottom="10"
+            android:text="Celular:"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/textView9"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="10"
+            android:paddingTop="10"
+            android:paddingBottom="10"
+            android:text="Categoria Favorita:"
+            android:textSize="18sp" />
+
+    </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>
