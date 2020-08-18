@@ -1,24 +1,23 @@
 package com.example.amst1.ui.home;
 
+import android.app.Dialog;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.amst1.AsyncQuery;
+import com.example.amst1.LoadImage;
 import com.example.amst1.R;
 import com.example.amst1.ui.home.adaptador.RecyclerAdapter;
 
@@ -29,6 +28,7 @@ import java.util.concurrent.ExecutionException;
 //public class HomeFragment extends Fragment {
 public class HomeFragment extends Fragment implements RecyclerAdapter.RecyclerItemClick, SearchView.OnQueryTextListener {
 //public class HomeFragment extends AppCompatActivity implements RecyclerAdapter.RecyclerItemClick, SearchView.OnQueryTextListener {
+    View root;
     private HomeViewModel homeViewModel;
     private RecyclerView rvLista;
     private SearchView svSearch;
@@ -40,16 +40,7 @@ public class HomeFragment extends Fragment implements RecyclerAdapter.RecyclerIt
                              ViewGroup container, Bundle savedInstanceState) {
         homeViewModel =
                 ViewModelProviders.of(this).get(HomeViewModel.class);
-        View root = inflater.inflate(R.layout.fragment_home, container, false);
-        /*final TextView textView = root.findViewById(R.id.text_home);
-        homeViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
-            @Override
-            public void onChanged(@Nullable String s) {
-                textView.setText(s);
-            }
-        });*/
-
-        //svBuscador = (SearchView) root.findViewById(R.id.svBuscador);
+        root = inflater.inflate(R.layout.fragment_home, container, false);
         rvLista = root.findViewById(R.id.rvLista);
         svSearch = root.findViewById(R.id.svBuscador);
         //txtLibros = (TextView)findViewById(R.id.txt);
@@ -147,6 +138,12 @@ public class HomeFragment extends Fragment implements RecyclerAdapter.RecyclerIt
         return itemLists;
     }
 
+
+    Dialog myDialog;
+    TextView txtClose;
+    ImageView emergeIMG;
+    TextView txtTitulo;
+    TextView txtResumen;
     /**
      * Ejecuta acciones de cuando se da click al item
      * el item tiene todos los valores del Libro
@@ -154,9 +151,35 @@ public class HomeFragment extends Fragment implements RecyclerAdapter.RecyclerIt
      */
     @Override
     public void itemClick(ItemList item) {
-        /*Intent intent = new Intent(this, DetailActivity.class);
-         intent.putExtra("itemDetail", item);
-         startActivity(intent);*/
+        myDialog = new Dialog(getContext());
+        myDialog.setContentView(R.layout.emergente_activity);
+        emergeIMG = (ImageView)myDialog.findViewById(R.id.emergIMG);
+        txtTitulo = (TextView)myDialog.findViewById(R.id.txtTitulo);
+        txtResumen = (TextView)myDialog.findViewById(R.id.txtResumen);
+        txtClose = (TextView)myDialog.findViewById(R.id.txtClose);
+        txtClose.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view) {
+                myDialog.dismiss();
+            }
+        });
+
+        txtTitulo.setText(item.getTitulo());
+        txtResumen.setText(item.getResumen());
+
+        LoadImage loadImage = new LoadImage(emergeIMG);
+        Bitmap bitm = null;
+        try {
+            bitm = loadImage.execute(item.getImgURL()).get();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        emergeIMG.setImageBitmap(bitm);
+
+
+        myDialog.show();
     }
 
     /////////////////////////////////////////////////////
