@@ -45,14 +45,19 @@ public class LoginActivity extends AppCompatActivity {
             };
             AsyncQuery async = new AsyncQuery();
             resultado = async.execute(datos).get();
-            if (resultado.length > 0) {
-                Toast toast = Toast.makeText(this, "Conexión Exitosa <3", Toast.LENGTH_SHORT);
-                toast.show();
-                usuario=resultado[0].split("\\r?\\n")[1].split("--")[0];
-                Intent i = new Intent(this, NavegationActivity.class);
-                startActivity(i);
-                this.finish();
-            } else{
+            if(resultado!=null) {
+                if (resultado.length > 0) {
+                    Toast toast = Toast.makeText(this, "Conexión Exitosa <3", Toast.LENGTH_SHORT);
+                    toast.show();
+                    usuario = resultado[0].split("\\r?\\n")[1].split("--")[0];
+                    Intent i = new Intent(this, NavegationActivity.class);
+                    startActivity(i);
+                    this.finish();
+                } else {
+                    Toast toast = Toast.makeText(this, "Ingreso Fallido", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
+            }else{
                 Toast toast = Toast.makeText(this, "Ingreso Fallido", Toast.LENGTH_SHORT);
                 toast.show();
             }

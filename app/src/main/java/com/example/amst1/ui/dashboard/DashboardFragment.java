@@ -20,6 +20,7 @@ import com.example.amst1.AsyncQuery;
 import com.example.amst1.LibrosFiltrados;
 import com.example.amst1.LoginActivity;
 import com.example.amst1.NavegationActivity;
+import com.example.amst1.Prueba;
 import com.example.amst1.R;
 import com.example.amst1.ui.home.HomeFragment;
 
@@ -55,9 +56,9 @@ public class DashboardFragment extends Fragment {
 
     public void llenarTabla(TableLayout tabla){
         String[] datos = consulta();
-        String[] lineas = datos[0].split("\\r?\\n");
+        String[] lineas = datos[0].split("\\n");
         Random rnd = new Random();
-        for (int i = 1; i <lineas.length; i++){
+        for (int i = 1; i <lineas.length; i++){//Si empezamos desde 1, evitamos el encabezado
             final String[] cate = lineas[i].split("--");
             TableRow tr = new TableRow(getContext());
             tr.setLayoutParams(new TableLayout.LayoutParams(TableLayout.LayoutParams.MATCH_PARENT, TableLayout.LayoutParams.MATCH_PARENT));
@@ -78,7 +79,7 @@ public class DashboardFragment extends Fragment {
                     Intent i = new Intent(getContext(), LibrosFiltrados.class );
                     i.putExtra("id", cate[0]);//id de la categoria
                     i.putExtra("nombre",cate[1]);//nombre de la categoria
-                    startActivity(i);
+                    getActivity().startActivity(i);
                 }
             });
             i++;

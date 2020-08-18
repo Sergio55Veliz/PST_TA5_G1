@@ -15,12 +15,20 @@ import java.util.concurrent.ExecutionException;
 public class Prueba extends AppCompatActivity {
 
     private TextView text;
+    private String idCategoria;
+    private String nomCategoria;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_prueba);
         text = findViewById(R.id.textView);
+
+
+        Bundle bundle = getIntent().getExtras();
+        idCategoria = bundle.getString("id");
+        nomCategoria = bundle.getString("nombre");
+
         getItems();
     }
     private String serverConsulta = "https://flightsregister.000webhostapp.com/queriTA5.php";
@@ -29,8 +37,31 @@ public class Prueba extends AppCompatActivity {
 
         //Obtener Info de la base de datos
         String[] resultLibros = null;
-        String queryLibro = "SELECT * FROM Libro";
+        //String queryLibro = "SELECT * FROM Libro";
+        String queryCategoLibro = "SELECT * FROM Libro_Categoria WHERE id="+idCategoria;
         try {
+            String queryLibro = "SELECT * FROM Libro WHERE ";
+            //Obtenemos id de Libros
+            String[] datos0 = new String[]{//ahora van 3 variables
+                    "query",//parametro diferenciador con la anterior funcion
+                    serverConsulta,
+                    queryCategoLibro//
+            };
+            AsyncQuery async0 = new AsyncQuery();
+            String[] resultIdLibros = async0.execute(datos0).get()[0].split("\\n");
+            String textPrueba = idCategoria+" "+nomCategoria+"\n";
+            for(int i=1; i<resultIdLibros.length; i++){//desde 1 para evitar el encabezado
+                /*String[] infoIds = resultIdLibros[i].split("--");
+                //Libro_Categoria: id,idCatego,idLibro
+                if(i>1){
+                    queryLibro += " OR";
+                }
+                queryLibro += " id="+infoIds[2];*/
+                textPrueba += resultIdLibros[i]+"\n";
+                //ord_por_idImg[Integer.parseInt(infoLibro[4])] = resultLibros[i];
+            }
+            text.setText(textPrueba);
+            /*
             String[] datos = new String[]{//ahora van 3 variables
                     "query",//parametro diferenciador con la anterior funcion
                     serverConsulta,
@@ -72,7 +103,7 @@ public class Prueba extends AppCompatActivity {
             }
 
 
-            text.setText(valorTXT);
+            text.setText(valorTXT);*/
 
             //Crear los Objetos ItemList que contendrán la info de los libros
             //itemLists.add(new ItemList(resultLibros[1], resultLibros[2], resultLibros[3], imgLibro, resultLibros[6]));

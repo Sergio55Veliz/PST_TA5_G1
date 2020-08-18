@@ -6,11 +6,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.example.amst1.ui.home.ItemList;
 import com.example.amst1.ui.home.adaptador.RecyclerAdapter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.concurrent.ExecutionException;
 
@@ -30,7 +32,8 @@ public class LibrosFiltrados extends AppCompatActivity implements RecyclerAdapte
 
         Bundle bundle = getIntent().getExtras();
         idCategoria = bundle.getString("id");
-        idCategoria = bundle.getString("nombre");
+        nomCategoria = bundle.getString("nombre");
+        this.setTitle(nomCategoria);
 
         initViews();
         initValues();
@@ -58,7 +61,7 @@ public class LibrosFiltrados extends AppCompatActivity implements RecyclerAdapte
 
         //Obtener Info de la base de datos
         String[] resultLibros = null;
-        String queryCategoLibro = "SELECT * FROM Libro_Categoria WHERE id="+idCategoria;
+        String queryCategoLibro = "SELECT * FROM Libro_Categoria WHERE idCatego="+idCategoria;
         try {
             String queryLibro = "SELECT * FROM Libro WHERE ";
             //Obtenemos id de Libros
@@ -69,14 +72,15 @@ public class LibrosFiltrados extends AppCompatActivity implements RecyclerAdapte
             };
             AsyncQuery async0 = new AsyncQuery();
             String[] resultIdLibros = async0.execute(datos0).get()[0].split("\\n");
+            String textPrueba = "Categoria_Libro\n";
             for(int i=1; i<resultIdLibros.length; i++){//desde 1 para evitar el encabezado
                 String[] infoIds = resultIdLibros[i].split("--");
-                //Libro: id,idCatego,idLibro
+                //Libro_Categoria: id,idCatego,idLibro
                 if(i>1){
                     queryLibro += " OR";
                 }
                 queryLibro += " id="+infoIds[2];
-
+                textPrueba += resultIdLibros[i]+"\n";
                 //ord_por_idImg[Integer.parseInt(infoLibro[4])] = resultLibros[i];
             }
 
@@ -92,7 +96,9 @@ public class LibrosFiltrados extends AppCompatActivity implements RecyclerAdapte
             //text.setText(async1.execute(datos).get()[0].split("\\n")[3].split("--")[3]);
             resultLibros = async1.execute(datos).get()[0].split("\\n");
             String queryImg = "SELECT * FROM Imagen WHERE";
-            String[] ord_por_idImg = new String[resultLibros.length];
+            // Se crea un HashMap imgMap = {id: datos_del_libro, ... }
+            HashMap<String, String> imgMap = new HashMap<>();
+            textPrueba += "\nLibros\n";
             for(int i=1; i<resultLibros.length; i++){//desde 1 para evitar el encabezado
                 String[] infoLibro = resultLibros[i].split("--");
                 //Libro: id,titulo,autor,editorial,idImagen,cantidad,resumen
@@ -100,8 +106,9 @@ public class LibrosFiltrados extends AppCompatActivity implements RecyclerAdapte
                     queryImg += " OR";
                 }
                 queryImg += " id="+infoLibro[4];
-
-                ord_por_idImg[Integer.parseInt(infoLibro[4])] = resultLibros[i];
+                textPrueba += resultLibros[i]+"\n";
+                // Add keys and values (id, datos_del_libro)
+                imgMap.put(infoLibro[4], resultLibros[i]);
             }
 
             String[] datoImg = new String[]{//ahora van 3 variables
@@ -109,22 +116,22 @@ public class LibrosFiltrados extends AppCompatActivity implements RecyclerAdapte
                     serverConsulta,
                     queryImg//
             };
-            String[] imagenes;
+
             AsyncQuery async2 = new AsyncQuery();
-            imagenes = async2.execute(datoImg).get()[0]
+            String[] imagenes = async2.execute(datoImg).get()[0]
                     .split("\\n");
-            String valorTXT = "";
+            textPrueba += "\nImagenes\n";
             for(int i=1; i<imagenes.length; i++) {//desde 1 para evitar el encabezado
-                String[] ingLine = imagenes[i].split("--");
-                String nomImagen = ingLine[1];
-                int indice = Integer.parseInt(ingLine[0]);
-                String[] infoLibro = ord_por_idImg[indice].split("--");
+                String[] imgLine = imagenes[i].split("--");
+                String idImg = imgLine[0];
+                String[] infoLibro = imgMap.get(idImg).split("--");
+                String nomImagen = imgLine[1];
                 itemLists.add(new ItemList(infoLibro[1], infoLibro[2], infoLibro[3], nomImagen, infoLibro[6]));
-                valorTXT+=nomImagen+"\n";
+                textPrueba += nomImagen+"\n";
             }
 
 
-            //txtLibros.setText(valorTXT);
+            //txtLibros.setText(textPrueba);
 
             //Crear los Objetos ItemList que contendrán la info de los libros
             //itemLists.add(new ItemList(resultLibros[1], resultLibros[2], resultLibros[3], imgLibro, resultLibros[6]));
