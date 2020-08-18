@@ -40,12 +40,12 @@ public class NotificationsFragment extends Fragment {
 
         results= consulta();
 
-        user.setText(user.getText()+results[0]);
-        name.setText(name.getText()+results[2]);
-        lname.setText(lname.getText()+results[3]);
-        mail.setText(mail.getText()+results[4]);
-        cel.setText(cel.getText()+results[5]);
-        cat.setText(cat.getText()+consultaCat(results[6]));
+        user.setText(results[0]);
+        name.setText(results[2]);
+        lname.setText(results[3]);
+        mail.setText(results[4]);
+        cel.setText(results[5]);
+        cat.setText(consultaCat(results[6]));
 
         /*notificationsViewModel.getText().observe(getViewLifecycleOwner(), new Observer<String>() {
             @Override
