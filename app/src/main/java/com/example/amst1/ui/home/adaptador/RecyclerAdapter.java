@@ -14,6 +14,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.amst1.LoadImage;
 import com.example.amst1.R;
 import com.example.amst1.ui.home.ItemList;
 
@@ -96,32 +97,7 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.Recycl
 
     }
 
-    private class LoadImage extends AsyncTask<String, Void, Bitmap> {
-        ImageView imageView;
-        public LoadImage(ImageView imgItem){
-            this.imageView = imgItem;
-        }
 
-        @Override
-        protected Bitmap doInBackground(String... strings){
-            String urlLink = strings[0];
-            Bitmap bitmap = null;
-            try {
-                InputStream inputStream = new java.net.URL(urlLink).openStream();
-                bitmap = BitmapFactory.decodeStream(inputStream);
-            }catch(IOException e){
-                e.printStackTrace();
-            }
-            return bitmap;
-        }
-
-        /*@Override
-        protected void onPostExecute(Bitmap bitmap) {
-            holder.imgItem.setImageBitmap(bitmap);
-        }*/
-
-
-    }
 
     /**
      * Va a indicar la cantidad de items que se van a crear
